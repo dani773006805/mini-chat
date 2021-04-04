@@ -36,4 +36,7 @@ public class MessageService {
         var pageable=PageRequest.of(0,20,sort1);
         return messageRepository.findAllByChatId(chatId,pageable);
     }
+    public void deleteAll(){
+        messageRepository.deleteAll();
+    }
 }

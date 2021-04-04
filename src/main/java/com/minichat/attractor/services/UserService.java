@@ -48,11 +48,11 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException(String.format("User with username %s not found", userName)));
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         userRepository.deleteAll();
     }
 

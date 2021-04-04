@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,5 +24,15 @@ public class ChatService {
     }
     public Optional<Chat> findById(Long id){
         return chatRepository.findById(id);
+    }
+    public void deleteAll(){
+        chatRepository.deleteAll();
+    }
+    public Chat save(Chat chat){
+        chat.setDate(LocalDateTime.now());
+        return chatRepository.save(chat);
+    }
+    public List<Chat> findAll(){
+        return chatRepository.findAll();
     }
 }
