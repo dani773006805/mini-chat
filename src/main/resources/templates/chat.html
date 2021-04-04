@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <style>
+        .main-content h6{
+            margin: 40px 15%;
+            padding: 40px 15%;
+            border: 2px solid black;
+            font-weight: bold;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-2">
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}"
+              method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+
+
+    <h2>Chat List</h2>
+    <div class="main-content">
+        <div th:each="chat:${listChats}">
+            <a th:href="@{/messages/{chatId}(chatId=${chat.id})}">
+                <h6 th:text="${chat.name}"></h6>
+            </a>
+
+        </div>
+    </div>
+
+
+        <tr th:each="chat : ${listChats}">
+            <td>
+            </td>
+        </tr>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/themes?pageNo=' + ${i}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/themes?pageNo=' + ${currentPage + 1}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/themes?pageNo=' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
