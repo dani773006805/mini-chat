@@ -76,7 +76,7 @@
     }
 
     async function getMessages() {
-        await fetch(`http://localhost:8888/message`)
+        await fetch(`http://localhost:8888/message?page=0&size=20`)
             .then(resp => resp.json()
                 .then(data => {
                     let messages = data['content'];
@@ -97,7 +97,7 @@
 
 
     async function getLastMessages() {
-        await fetch("http://localhost:8888/message/last20")
+        await fetch("http://localhost:8888/message/last20?page=0&size=20")
             .then(resp => resp.json()
                 .then(data => {
                     let messages = data['content'];
