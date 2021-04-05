@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Controller
@@ -65,7 +64,7 @@ public class MessageController {
     @CrossOrigin(origins = "*")
     @GetMapping("/message/last20")
     public ResponseEntity<?> getLastMessages(Pageable pageable) {
-        var messagesPage = messageService.getMessagePage20(id);
+        var messagesPage = messageService.getMessagePage20(id,pageable);
         var messagesDtoPage = messagesPage
                 .map(MessageDto::fromAll);
         return ResponseEntity.ok(messagesDtoPage);

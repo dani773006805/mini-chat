@@ -29,12 +29,13 @@ public class MessageService {
         var pa=messageRepository.findAllByChatIdAndAndDateAfter(chatId,date,pageable);
         return pa;
     }
-    public Page<Message> getMessagePage20(Long chatId){
+    public Page<Message> getMessagePage20(Long chatId,Pageable pageable){
         String sortField="date";
         Sort sort=Sort.by(sortField);
         var sort1=sort.descending();
-        var pageable=PageRequest.of(0,20,sort1);
-        return messageRepository.findAllByChatId(chatId,pageable);
+        var pageable1=PageRequest.of(pageable.getPageNumber(),
+                pageable.getPageSize(),sort1);
+        return messageRepository.findAllByChatId(chatId,pageable1);
     }
     public void deleteAll(){
         messageRepository.deleteAll();
